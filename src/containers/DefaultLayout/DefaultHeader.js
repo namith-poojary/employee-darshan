@@ -85,10 +85,10 @@ class DefaultHeader extends Component {
 
         <Nav className="d-md-down-none" navbar>
            <NavItem className="px-3">
-            <NavLink to="/Add" className="nav-link" >ADD</NavLink>
+            {/* <NavLink to="/Add" className="nav-link" >ADD</NavLink> */}
           </NavItem>
           <NavItem className="px-3">
-            <Link to="/resume" className="nav-link">RESUMES</Link>
+            {/* <Link to="/resume" className="nav-link">RESUMES</Link> */}
           </NavItem>
           {/* <NavItem className="px-3">
             <Link to="/manage" className="nav-link">ManageJob</Link>

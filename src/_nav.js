@@ -14,12 +14,12 @@ export default {
       // icon: 'icon-speedometer',
      
     },
-    {
-      name: 'Manage Job',
-      url: '/Manage',
-      // icon: 'icon-speedometer',
+    // {
+    //   name: 'Manage Job',
+    //   url: '/Manage',
+    //   // icon: 'icon-speedometer',
      
-    },
+    // },
     {
       name: 'Manage Referral',
       url: '/progress',

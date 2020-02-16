@@ -1,132 +1,225 @@
 import React, { Component } from 'react';
-import { Card, CardBody, Col, Row, Table } from 'reactstrap';
-import './users.css'
-import axios from 'axios'
 
+import {  Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
+
+
+import axios from 'axios';
+
+//import '../css/button1.css';
+import 'bootstrap/dist/css/bootstrap.min.css'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import './one.css'
+
+// function UserRow(props) {
+ 
+//   const userLink = `/users/${user.id}`
+
+//   // const getBadge = (status) => {
+//   //   return status === 'Active' ? 'success' :
+//   //     status === 'Inactive' ? 'secondary' :
+//   //       status === 'Pending' ? 'warning' :
+//   //         status === 'Banned' ? 'danger' :
+//   //           'primary'
+//   // }
+
+//   return (
+    
+//   )
+// }
 
 class Users extends Component {
-  constructor(props) {
+  constructor(props){
     super(props)
-    this.state = {            
-      posts: [],
-      departments:"",
-      filtered:"",
-    }
+
+this.state = {
+  modal: false,
+      name:'',
+      email:'',
+      phone:'',
+      qualification:'',
+      job:'',
+      referee_id:' ',
+      referred_on:'',
+      department:'',
+      index:'',
+posts:[],
+
+
+}
+this.toggle = this.toggle.bind(this);
   }
+  toggle(index) {
+    console.log(index)
+    this.setState(prevState => ({
+      modal: !prevState.modal,
+      index:index
+    }));
+    
+  }
+  handleChange = (e) => {
+    this.setState({
+      [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value
+    });
+  }
+  handleSubmit = (e,index) => {
+   e.preventDefault();
+   var d=new Date()
+  var date=""
+  var month=d.getMonth()
+  var day=d.getDate()
+  if (month.length < 2) month = '0' + month;
+  if (day.length < 2) day = '0' + day;
+   date=d.getFullYear()+"-"+month+"-"+day
+   console.log(date)
+   var code=""
+   code=d.getTime();
+   const status = {
+      
+    isReferred:true,
+    isAccepted:false,
+    isInterviewed:false,
+    isHired:false,
+    notHired:false
 
-  componentDidMount() {
 
+ };
+ //console.log(this.state.posts[this.state.index].department)
+   const one = {
+     job_id:this.state.posts[this.state.index]._id,
+     name:this.state.name,   
+     email:this.state.email,
+     phone:this.state.phone,
+     qualification:this.state.posts[this.state.index].qualification,
+     job:this.state.posts[this.state.index].role,
+     referee_id:1003,
+     referred_on:date,
+     department:this.state.posts[this.state.index].department,
+     status:status,
+     
+    };
+    //console.log(this.state.posts)
+    
+    // this.props.addPosts(one)
+    // this.setState(prevState => ({
+    //   modal: !prevState.modal
+    // }));
+    console.log(one);
+    const sam =localStorage.getItem('token');
+    const headers= {
+     
+      "Content-Type": "application/json",
+       "Accept":"*/*",
+       'Authorization':sam
+   }
+    axios.post('https://employee-referals.herokuapp.com/api/referee/addreferee',{headers})
+    .then(res => console.log(res))
+    .catch(function (error) {
+    console.log("ERROR"+ error);
+  })
+  }
+  componentDidMount () {
+    
     this.getPosts()
    
+}
 
-  }
-  
-
-  getPosts() {
-    const sam =localStorage.getItem('token');
-       
-     const  headers ={
-      
-        "Content-Type": "application/json",
-        "Accept":"*/*",
-        'Authorization':sam
-      }
-      
- axios.get('https://employee-referals.herokuapp.com/api/users/',{headers})
+getPosts() {
+  const sam =localStorage.getItem('token');
+  const headers= {
      
-
-    
-      .then(res => {
-        // console.log(res)
-          this.setState({
-          posts: res.data,
-          
-         })
-       
-      })
-  }
-
-
-  getId = (e) => {
-    console.log(e._id)
-    const samm =localStorage.getItem('token');
+    "Content-Type": "application/json",
+     "Accept":"*/*",
+     'Authorization':sam
+ }
+  axios.get('https://employee-referals.herokuapp.com/api/job',{headers})
+  .then(res => {
+      this.setState({
+        posts:res.data
         
-    const header = {
-      "Content-Type": "application/json",
-        "Accept":"*/*",
-        'Authorization':samm,
-      _id: e._id
-    }
-    const sam = {
-      _id: e._id
-    }
-    axios.post('https://employee-referals.herokuapp.com/api/users/userdelete',sam, {headers: header})
-      .then(res => {
-        // const users = res.data
-        console.log(res)
-        this.getPosts()
-
-
       })
-  }
-  handleInputChange = event => {
-    this.setState({ filtered: event.target.value });
-  };
-
+     console.log(this.state.posts)
+    } )
+  
+}
 
   render() {
 
-    // const userList = this.state.posts
-    const filteredData = this.state.posts.filter(val => {
-      if(this.state.filtered.length){
-        const lowerCaseValue= val["department"].toLowerCase()
-        const lowerCase= val["name"].toLowerCase()
-        const lower= val["role"].toLowerCase()
-         return lowerCaseValue.includes(this.state.filtered.toLowerCase())||lowerCase.includes(this.state.filtered.toLowerCase())||lower.includes(this.state.filtered.toLowerCase())
-      }
-      return true
-    });
+    const userList = this.state.posts
+    
+   // console.log(this.state.posts)
+  // const user = props.user
 
     return (
       <div className="animated fadeIn">
         <Row>
           <Col xl={12}>
             <Card>
-              {/* <CardHeader>
-                <i className="fa fa-align-justify"></i> Users 
-              </CardHeader> */}
+              <CardHeader>
+                {/* <i className="fa fa-align-justify"></i> Users <small className="text-muted">example</small> */}
+              </CardHeader>
               <CardBody>
-                <div className="searchForm">
-              <form>
-          <input
-            id="searchkey"
-            placeholder="Search for..."
-            name="filter"
-            onChange={this.handleInputChange}
-          />
-        </form>
-        </div>
                 <Table responsive hover>
                   <thead>
                     <tr>
-                      <th scope="col">Name</th>
-                      <th scope="col">E-mail</th>
-                      <th scope="col">Department</th>
                       <th scope="col">Role</th>
-                      <th scope="col">Phone.No</th>
-                      <th scope="col">Delete</th>
+                      <th scope="col">Qualification</th>
+                      <th scope="col">Experience</th>
+                      <th scope="col">Salary</th>
+                      <th scope="col">Department</th>
+                      <th scope="col">Referal Bonus</th>
+                      <th scope="col">Refer</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {filteredData.map((user) =>
-                      <tr key={user._id}>
-                        <th>{user.name}</th>
-                        <td>{user.email}</td>
-                        <td>{user.department}</td>
-                        <td>{user.role}</td>
-                        <td>{user.phone}</td>
-                        <button className="btn btn-danger" onClick={(e) => { this.getId(user) }}>Delete</button>
-                      </tr>
+                    {userList.map((user, index) =>
+                      <tr >
+      <th scope="row">{user.role}</th>
+      <td>{user.qualification}</td>
+       <td>{user.experience}</td>
+      <td>{user.salary}</td>
+      <td>{user.department}</td>
+      <td>{user.referalbonus}</td> 
+      <td>
+      <div>
+      <div className="but">
+     <Button className="Button"  onClick={()=>{this.toggle(index)}}>{this.props.buttonLabel}refer</Button>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
+          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalBody>
+           <div className="base-container">
+      <div className="header">Refer</div>
+        <div className="content" >
+    <div className="form">
+    <div className="form-group">
+              <label htmlFor="empid">Name</label>
+              <input type="text" id="name" name="name" placeholder="name" onChange={this.handleChange}  />
+            </div>
+            <div className="form-group">
+              <label htmlFor="phone">Email Id</label>
+              <input type="text" id="email" name="email" placeholder="email" onChange={this.handleChange}/>
+            </div>
+            <div className="form-group">
+              <label htmlFor="username">Phone</label>
+              <input type="number" id="phone"name="phone" placeholder="phone" onChange={this.handleChange}  />
+            </div>
+           
+            
+          </div>
+         </div>
+        </div>
+        </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.handleSubmit} >Submit</Button>
+            <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
+        
+      </div>
+      </div>
+    
+    </td>
+     
+    </tr>
                     )}
                   </tbody>
                 </Table>
