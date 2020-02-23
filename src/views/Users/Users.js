@@ -91,7 +91,7 @@ this.toggle = this.toggle.bind(this);
      phone:this.state.phone,
      qualification:this.state.posts[this.state.index].qualification,
      job:this.state.posts[this.state.index].role,
-     referee_id:1003,
+    //  referee_id:1003,
      referred_on:date,
      department:this.state.posts[this.state.index].department,
      status:status,
@@ -104,14 +104,28 @@ this.toggle = this.toggle.bind(this);
     //   modal: !prevState.modal
     // }));
     console.log(one);
-    const sam =localStorage.getItem('token');
-    const headers= {
-     
-      "Content-Type": "application/json",
-       "Accept":"*/*",
-       'Authorization':sam
-   }
-    axios.post('https://employee-referals.herokuapp.com/api/referee/addreferee',{headers})
+    const samm =localStorage.getItem('token');
+    const options={
+      url:'http://localhost:4002/api/referee/addreferee',
+      method:'POST',
+      headers:{
+       'Content-Type': 'application/json',
+        'Authorization':samm
+      },
+      data:{
+        job_id:this.state.posts[this.state.index]._id,
+     name:this.state.name,   
+     email:this.state.email,
+     phone:this.state.phone,
+     qualification:this.state.posts[this.state.index].qualification,
+     job:this.state.posts[this.state.index].role,
+    //  referee_id:1003,
+     referred_on:date,
+     department:this.state.posts[this.state.index].department,
+     status:status,
+      }
+    }
+    axios(options)
     .then(res => console.log(res))
     .catch(function (error) {
     console.log("ERROR"+ error);
@@ -131,7 +145,7 @@ getPosts() {
      "Accept":"*/*",
      'Authorization':sam
  }
-  axios.get('https://employee-referals.herokuapp.com/api/job',{headers})
+  axios.get('http://localhost:4002/api/job',{headers})
   .then(res => {
       this.setState({
         posts:res.data

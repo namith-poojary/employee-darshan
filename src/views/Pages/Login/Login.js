@@ -34,8 +34,9 @@ import  "./App.scss";
       email: this.state.email,
       password: this.state.password
     };
+    
     console.log(user)
-    axios.post('https://employee-referals.herokuapp.com/auth',user)
+    axios.post('http://localhost:4002/auth',user)
       .then(res => {
          localStorage.setItem('token',res.data.token);
          localStorage.setItem('type',res.data.usertype);
