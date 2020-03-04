@@ -1,14 +1,33 @@
+/**
+ * login module
+ * @module login
+ * 
+ * 
+ */
+
+
 import React from "react";
 import loginImg from "./login.svg";
 import axios from "axios"
 import  "./App.scss";
 
-
+/**
+ * Class to create Login object
+ * 
+ */
  export default class Login extends React.Component {
   
 
   state ={
+    /**
+     * @property {String} email persons email
+     * 
+     */
     email:'',
+    /**
+     * @property {String} password persons password
+     * 
+     */
     password:'',
     
   }
@@ -23,7 +42,9 @@ import  "./App.scss";
       [e.target.id]: e.target.value
     });
   }
-  
+  /**
+   * @property {Function} handleSubmit runs when user clicks submit button
+   */
   handleSubmit = (e) => {
     e.preventDefault();
     // console.log(this.state);
@@ -36,7 +57,10 @@ import  "./App.scss";
     };
     
     console.log(user)
-    axios.post('http://localhost:4002/auth',user)
+    /**
+     * @property {Function} post sends data for authorization purpose
+     */
+    axios.post('https://employee-referals.herokuapp.com/auth',user)
       .then(res => {
          localStorage.setItem('token',res.data.token);
          localStorage.setItem('type',res.data.usertype);

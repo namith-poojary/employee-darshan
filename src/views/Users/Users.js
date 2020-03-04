@@ -1,3 +1,9 @@
+/**
+ * All Users Module
+ * @module Users
+ */
+
+
 import React, { Component } from 'react';
 
 import {  Card, CardBody, CardHeader, Col, Row, Table } from 'reactstrap';
@@ -26,7 +32,9 @@ import './one.css'
     
 //   )
 // }
-
+/**
+ * Class to view all the job openings and to refer it to a person
+ */
 class Users extends Component {
   constructor(props){
     super(props)
@@ -61,6 +69,9 @@ this.toggle = this.toggle.bind(this);
       [e.target.name]: e.target.type === 'number' ? parseInt(e.target.value) : e.target.value
     });
   }
+  /**
+   * @property {Function} handleSubmit runs on submit
+   */
   handleSubmit = (e,index) => {
    e.preventDefault();
    var d=new Date()
@@ -106,7 +117,7 @@ this.toggle = this.toggle.bind(this);
     console.log(one);
     const samm =localStorage.getItem('token');
     const options={
-      url:'http://localhost:4002/api/referee/addreferee',
+      url:'https://employee-referals.herokuapp.com/api/referee/addreferee',
       method:'POST',
       headers:{
        'Content-Type': 'application/json',
@@ -136,7 +147,9 @@ this.toggle = this.toggle.bind(this);
     this.getPosts()
    
 }
-
+/**
+ * @property {Function} getPosts gets all the informstion for that logged in user
+ */
 getPosts() {
   const sam =localStorage.getItem('token');
   const headers= {
@@ -145,7 +158,7 @@ getPosts() {
      "Accept":"*/*",
      'Authorization':sam
  }
-  axios.get('http://localhost:4002/api/job',{headers})
+  axios.get('https://employee-referals.herokuapp.com/api/job',{headers})
   .then(res => {
       this.setState({
         posts:res.data
