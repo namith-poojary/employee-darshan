@@ -63,9 +63,10 @@ margin-bottom: 27px;
   
     .d-md-down-none{
     margin-top: 1rem;
+    /* padding-bottom: 20px; */
   }
   .d-md-down-none1{
-    padding:20px;
+    padding-right:20px;
   }
 /*   
     .form-group {
