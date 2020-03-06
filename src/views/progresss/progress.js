@@ -239,8 +239,8 @@ class progress extends Component {
 <Card className="ram" style={{ width:'100%'}}>
      <Card.Body>
        <div className="sam">
-   <h2>{post.qualification}</h2>
-   <h1>{(post.job)}</h1> 
+   <h1>{post.name}</h1>
+   <h2>{(post.job)}</h2> 
    
    </div>
 
@@ -248,16 +248,16 @@ class progress extends Component {
     <p>
       <label>
   <input  type="checkbox" name="isReferred" id="isReferred"
-  checked={post.status.isReferred} onChange={(e)=>{this.onCheckChange(e,index)}}/><span>Referred</span></label>
+  checked={post.status.isReferred}/><span>Referred</span></label>
   <label><input type="checkbox" name="isAccepted" id="isAccepted"
 
-  checked={post.status.isAccepted} onChange={(e)=>{this.onCheckChange(e,index)}}/><span>Accepted</span></label>
+  checked={post.status.isAccepted} /><span>Accepted</span></label>
   <label><input  type="checkbox" name="isInterviewed" id="isInterviewed"
-  checked={post.status.isInterviewed} onChange={(e)=>{this.onCheckChange(e,index)}}/><span>Interviewing</span></label>
+  checked={post.status.isInterviewed} /><span>Interviewing</span></label>
   <label><input  type="checkbox" name="isHired" id="isHired"
-  checked={post.status.isHired} onChange={(e)=>{this.onCheckChange(e,index)}}/><span>Hired</span></label>
+  checked={post.status.isHired}/><span>Hired</span></label>
   <label><input  type="checkbox" name="notHired" id="notHired"
-  checked={post.status.notHired} onChange={(e)=>{this.onCheckChange(e,index)}}/><span>Not Hired</span></label>
+  checked={post.status.notHired} /><span>Not Hired</span></label>
 <br></br>
 
   {/* <Button  variant="primary" size="lg" className='offset-md-4'  type="submit" className="btn btn-danger">

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { Nav, NavItem } from 'reactstrap';
+import { withRouter } from 'react-router'
+
 import PropTypes from 'prop-types';
 import {  AppNavbarBrand, AppSidebarToggler } from '@coreui/react';
 import logo from '../../assets/img/brand/logo.svg'
@@ -44,6 +46,10 @@ class DefaultHeader extends Component {
       [e.target.id]: e.target.value
     });
   }
+  logoutHandler =(e) => {
+    localStorage.clear();
+    this.props.history.push('/login')
+}
   handleSubmit = (e) => {
     const one = {
       name:this.state.name,
@@ -160,9 +166,8 @@ class DefaultHeader extends Component {
 
 
           </NavItem>
-       <NavItem className="d-md-down-none">
-            <i className="cui-account-logout icons font-2xl d-block mt-4"></i>
-          </NavItem> 
+          <NavItem className="d-md-down-none1">
+       <a href="#" onClick={e=>this.logoutHandler(e)}>Logout</a>          </NavItem> 
           {/* <NavItem className="d-md-down-none">
             <NavLink to="#" className="nav-link"><i className="icon-location-pin"></i></NavLink>
           </NavItem> */}
@@ -197,4 +202,4 @@ class DefaultHeader extends Component {
 DefaultHeader.propTypes = propTypes;
 DefaultHeader.defaultProps = defaultProps;
 
-export default DefaultHeader;
+export default withRouter(DefaultHeader);

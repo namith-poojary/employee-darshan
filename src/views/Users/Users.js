@@ -137,7 +137,7 @@ this.toggle = this.toggle.bind(this);
       }
     }
     axios(options)
-    .then(res => console.log(res))
+    .then(this.setState({modal:false}))
     .catch(function (error) {
     console.log("ERROR"+ error);
   })
@@ -211,7 +211,7 @@ getPosts() {
       <div className="but">
      <Button className="Button"  onClick={()=>{this.toggle(index)}}>{this.props.buttonLabel}refer</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+          <ModalHeader toggle={this.toggle}></ModalHeader>
           <ModalBody>
            <div className="base-container">
       <div className="header">Refer</div>

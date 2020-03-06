@@ -9,7 +9,7 @@ export default {
      
     },
     {
-      name: 'Users',
+      name: 'Jobs',
       url: '/Users',
       // icon: 'icon-speedometer',
      
